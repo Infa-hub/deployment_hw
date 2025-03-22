@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* Скруглённые углы для контейнера */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #2c3e50; /* Рамка для аватарки */
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px; /* Скруглённые углы для секций */
+            border: 1px solid #ddd; /* Рамка для секций */
+        }
+        .section h2 {
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+        }
+        .section p {
+            margin: 5px 0;
+        }
+        .section a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ user.avatar_url }}" alt="Аватар" class="avatar">
+            <h1>{{ user.name }}</h1>
+            <p><a href="{{ user.web_url }}" target="_blank">Профиль GitLab</a></p>
+        </div>
+
+        <div class="section">
+            <h2>Основная информация</h2>
+            <p><strong>Логин:</strong> {{ user.username }}</p>
+            <p><strong>Компания:</strong> {{ user.organization or 'Не указано' }}</p>
+            <p><strong>Локация:</strong> {{ user.location or 'Не указано' }}</p>
+            <p><strong>Email:</strong> {{ user.email or 'Не указано' }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Проекты</h2>
+            <ul>
+                {% for project in projects %}
+                    <li><a href="{{ project.web_url }}" target="_blank">{{ project.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Дополнительная информация</h2>
+            <p><strong>Общее количество репозиториев:</strong> {{ user.repos_count }}</p>
+            <p><strong>Количество подписчиков:</strong> {{ user.followers }}</p>
+            <p><strong>Количество подписок:</strong> {{ user.following }}</p>
+        </div>
+    </div>
+</body>
+</html>
